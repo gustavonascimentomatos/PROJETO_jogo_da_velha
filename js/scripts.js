@@ -27,6 +27,144 @@ function computaJogada(jogador1, jogador2) {
     }
 }
 
+// Validação se houve vencedor
+function checkWinCondition(){
+    let block1 = document.getElementById("block-1");
+    let block2 = document.getElementById("block-2");
+    let block3 = document.getElementById("block-3");
+    let block4 = document.getElementById("block-4");
+    let block5 = document.getElementById("block-5");
+    let block6 = document.getElementById("block-6");
+    let block7 = document.getElementById("block-7");
+    let block8 = document.getElementById("block-8");
+    let block9 = document.getElementById("block-9");
+
+    // Validação 1ª linha horizontal
+    if (block1.childNodes.length > 0 && block2.childNodes.length > 0 && block3.childNodes.length > 0 ) {
+
+        let block1Child = block1.childNodes[0].className;
+        let block2Child = block2.childNodes[0].className;
+        let block3Child = block3.childNodes[0].className;
+
+        if (block1Child == "x" && block2Child == "x" && block3Child == "x") {
+            console.log("X venceu");
+        } else if (block1Child == "o" && block2Child == "o" && block3Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Validação 2ª linha horizontal
+    if (block4.childNodes.length > 0 && block5.childNodes.length > 0 && block6.childNodes.length > 0 ) {
+
+        let block4Child = block4.childNodes[0].className;
+        let block5Child = block5.childNodes[0].className;
+        let block6Child = block6.childNodes[0].className;
+
+        if (block4Child == "x" && block5Child == "x" && block6Child == "x") {
+            console.log("X venceu");
+        } else if (block4Child == "o" && block5Child == "o" && block6Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Validação 3ª linha horizontal
+    if (block7.childNodes.length > 0 && block8.childNodes.length > 0 && block9.childNodes.length > 0 ) {
+
+        let block7Child = block7.childNodes[0].className;
+        let block8Child = block8.childNodes[0].className;
+        let block9Child = block9.childNodes[0].className;
+
+        if (block7Child == "x" && block8Child == "x" && block9Child == "x") {
+            console.log("X venceu");
+        } else if (block7Child == "o" && block8Child == "o" && block9Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Validação 1ª linha vertical
+    if (block1.childNodes.length > 0 && block4.childNodes.length > 0 && block7.childNodes.length > 0 ) {
+
+        let block1Child = block1.childNodes[0].className;
+        let block4Child = block4.childNodes[0].className;
+        let block7Child = block7.childNodes[0].className;
+
+        if (block1Child == "x" && block4Child == "x" && block7Child == "x") {
+            console.log("X venceu");
+        } else if (block1Child == "o" && block4Child == "o" && block7Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Validação 2ª linha vertical
+    if (block2.childNodes.length > 0 && block5.childNodes.length > 0 && block8.childNodes.length > 0 ) {
+
+        let block2Child = block2.childNodes[0].className;
+        let block5Child = block5.childNodes[0].className;
+        let block8Child = block8.childNodes[0].className;
+
+        if (block2Child == "x" && block5Child == "x" && block8Child == "x") {
+            console.log("X venceu");
+        } else if (block2Child == "o" && block5Child == "o" && block8Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Validação 3ª linha vertical
+    if (block3.childNodes.length > 0 && block6.childNodes.length > 0 && block9.childNodes.length > 0 ) {
+
+        let block3Child = block3.childNodes[0].className;
+        let block6Child = block6.childNodes[0].className;
+        let block9Child = block9.childNodes[0].className;
+
+        if (block3Child == "x" && block6Child == "x" && block9Child == "x") {
+            console.log("X venceu");
+        } else if (block3Child == "o" && block6Child == "o" && block9Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Validação 1ª linha diagonal
+    if (block1.childNodes.length > 0 && block5.childNodes.length > 0 && block9.childNodes.length > 0 ) {
+
+        let block1Child = block1.childNodes[0].className;
+        let block5Child = block5.childNodes[0].className;
+        let block9Child = block9.childNodes[0].className;
+
+        if (block1Child == "x" && block5Child == "x" && block9Child == "x") {
+            console.log("X venceu");
+        } else if (block1Child == "o" && block5Child == "o" && block9Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+    
+    // Validação 2ª linha diagonal
+    if (block3.childNodes.length > 0 && block5.childNodes.length > 0 && block7.childNodes.length > 0 ) {
+
+        let block3Child = block3.childNodes[0].className;
+        let block5Child = block5.childNodes[0].className;
+        let block7Child = block7.childNodes[0].className;
+
+        if (block3Child == "x" && block5Child == "x" && block7Child == "x") {
+            console.log("X venceu");
+        } else if (block3Child == "o" && block5Child == "o" && block7Child == "o") {
+            console.log("O Venceu");
+        }
+    }
+
+    // Velha
+    let counterJogadas = 0;
+    
+    for (let index = 0; index < boxes.length; index++) {
+        if (boxes[index].childNodes[0] != undefined) {
+            counterJogadas++;
+        }
+    }
+
+    if (counterJogadas == 9) {
+        console.log("Deu velha");
+    }
+}
+
 // Adicionando o evento de click dentro das boxes
 for (let index = 0; index < boxes.length; index++) {
 
@@ -41,6 +179,8 @@ for (let index = 0; index < boxes.length; index++) {
             this.appendChild(cloneElemento); // Inseri o elemento dentro da box
     
             computaJogada(player1, player2);
+
+            checkWinCondition();
         }
     });
 }
