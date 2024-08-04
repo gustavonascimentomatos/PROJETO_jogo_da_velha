@@ -7,7 +7,7 @@ let messageText = document.querySelector("#message p"); // Texto da mensagem de 
 let secondPlayer; // Definição do segundo jogador (IA ou Pessoa)
 let player1 = 0; // Contador de jogadas do jogador 1
 let player2 = 0; // Contador de jogadas do jogador 2
-let winner = 0;
+let winner = 0; // Valida se já existe um vencedor
 
 // Validação de quem é a vez da jogada
 function validadorJogada(player1, player2) {
@@ -23,6 +23,13 @@ function validadorJogada(player1, player2) {
 function computaJogada(jogador1, jogador2) {
     if (jogador1 == jogador2) {
         player1++;
+        if (secondPlayer == "ai-player") {
+
+            setTimeout(function(){
+                computaJogadaIA();
+            },300)
+            player2 ++;
+        }
     } else {
         player2++;
     }
@@ -68,7 +75,6 @@ function checkWinCondition(){
             winner = 1;
             declararWinner("x");
         } else if (block4Child == "o" && block5Child == "o" && block6Child == "o") {
-            winner = 1;
             winner = 1;
             declararWinner("o");
         }
@@ -218,23 +224,71 @@ function declararWinner(winner) {
 
 // Limpa tela
 function removeJogadas(){
-    let boxesToRemove = document.querySelectorAll(".box div");
 
-    setTimeout(function() {
+    setTimeout(() => {
+        let boxesToRemove = document.querySelectorAll(".box div");
         for (let index = 0; index < boxesToRemove.length; index++) {
             boxesToRemove[index].parentNode.removeChild(boxesToRemove[index]);
         }
-    }, 2500);
+    }, 2600);
 }
 
+// Seleciona o segundo jogador
+function selecaoSegundoJogador() {
+    for (let index = 0; index < buttons.length; index++) {
+        buttons[index].addEventListener("click", function() {
+            
+            secondPlayer = this.getAttribute("id"); 
+
+            for (let indexJ = 0; indexJ < buttons.length; indexJ++) {
+                buttons[indexJ].style.display = "none";   
+            }
+
+            setTimeout(function(){
+                let container = document.querySelector("#container");
+                container.classList.remove("hide");
+            },100)
+
+        });
+    }
+}
+
+// Realiza jogda da IA
+function computaJogadaIA() {
+    let cloneO = marcadorO.cloneNode(true);
+    contador = 0;
+    preenchido = 0;
+
+    if (winner != 1) {
+        setTimeout(() => {
+            for (let index = 0; index < boxes.length; index++) {
+                let randomNumber = Math.floor(Math.random() * 5);
+                if(boxes[index].childNodes[0] == undefined) {
+                    if (randomNumber <= 1) {
+                        boxes[index].appendChild(cloneO);
+                        contador++;
+                        checkWinCondition();
+                        break;
+                    }
+                } else {
+                    preenchido++;
+                }
+            }
+        
+            if (contador == 0 && preenchido < 9) {
+                computaJogadaIA();
+            }
+        }, 250);
+    }
+}
 
 // Adicionando o evento de click dentro das boxes
 for (let index = 0; index < boxes.length; index++) {
+    selecaoSegundoJogador();
     // Quando alguem clicar na caixa
     boxes[index].addEventListener("click", function () {
 
         let elemento = validadorJogada(player1, player2);
-
         if (this.childNodes.length == 0) { // Valida de dentro da box esta vazio
 
             let cloneElemento = elemento.cloneNode(true); // Cria um clone do elemento
@@ -243,7 +297,6 @@ for (let index = 0; index < boxes.length; index++) {
             computaJogada(player1, player2);
 
             checkWinCondition();
-
         }
     });
 }
